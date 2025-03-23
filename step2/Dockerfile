@@ -7,7 +7,10 @@ WORKDIR /app
 COPY . .
 
 # 必要なパッケージのインストール
-RUN apt-get update && npm install
+RUN apt-get update
+    
+RUN cd server && \
+    npm install
 
 # アプリケーションのポートを指定
 EXPOSE 3000
