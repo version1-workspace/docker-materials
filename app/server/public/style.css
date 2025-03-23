@@ -1,0 +1,108 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 128px;
+}
+
+.todo__form {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px;
+  box-shadow: 0px 0px 8px 8px #cccccc0f;
+  border-radius: 4px;
+}
+
+.todo__form-input {
+  flex: 8;
+  padding: 8px 16px;
+  margin-right: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.todo__form-button {
+  flex: 2;
+}
+
+.todo__list {
+  padding: 0;
+  margin: 0;
+  margin-top: 20px;
+  padding: 32px;
+  min-height: 200px;
+  box-shadow: 0px 0px 8px 8px #cccccc0f;
+  border-radius: 4px;
+}
+
+.todo__item {
+  list-style: none;
+}
+
+.todo__item-input {
+  display: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.todo__item-input--editing {
+  display: block;
+}
+
+.todo__item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.todo__item-id {
+  flex: 1;
+}
+
+.todo__item-title {
+  flex: 5;
+  text-align: left;
+}
+
+.todo__item-title-text--editing {
+  display: none;
+}
+
+.todo__item-actions {
+  flex: 4;
+}
+
+.button {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 4px 2px #cccccc40;
+}
+
+.button--danger {
+  border: 0;
+  background-color: #f00;
+  color: #fff;
+}
+
+.button--primary {
+  border: 0;
+  background-color: #007bff;
+  color: #fff;
+}
