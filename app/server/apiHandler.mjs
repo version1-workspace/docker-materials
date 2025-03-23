@@ -14,7 +14,7 @@ const todoRepository = (function (kind) {
     default:
       throw new Error(`Unknown repository kind: ${kind}`);
   }
-})("memory");
+})(process.env.DATASOURCE_TYPE || "memory");
 
 const parseBody = (req) => {
   return new Promise((resolve, reject) => {
