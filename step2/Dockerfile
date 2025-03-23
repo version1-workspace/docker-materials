@@ -4,12 +4,10 @@ FROM node:22
 WORKDIR /app
 
 # アプリケーションのコードをコピー
-COPY . .
+COPY server .
 
 # 必要なパッケージのインストール
-RUN apt-get update
-    
-RUN cd server && \
+RUN apt-get update && \
     npm install
 
 # アプリケーションのポートを指定
