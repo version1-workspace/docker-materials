@@ -31,18 +31,35 @@ const parseBody = (req) => {
   });
 };
 
+function writeHead(res, statusCode) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS",
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.writeHead(statusCode, {
+    "Content-Type": "application/json",
+  });
+}
+
 // Create an HTTP server
 export const handler = async (req, res) => {
+  if (req.method === "OPTIONS") {
+    writeHead(res, 204);
+    res.end();
+    return;
+  }
   // Send the response body
   if (req.url === apiEndpoint("/todos") && req.method === "POST") {
     const todo = await parseBody(req);
     try {
       await todoRepository.create(todo);
-      res.writeHead(200, { "Content-Type": "application/json" });
+      writeHead(res, 200);
       res.end(JSON.stringify({}));
     } catch (e) {
       if (e instanceof ValidationError) {
-        res.writeHead(400, { "Content-Type": "application/json" });
+        writeHead(res, 400);
         res.end(
           JSON.stringify({
             message: e.message,
@@ -55,14 +72,14 @@ export const handler = async (req, res) => {
   }
 
   if (req.url === apiEndpoint("/todos") && req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "application/json" });
+    writeHead(res, 200);
     res.end(JSON.stringify(await todoRepository.findAll()));
   }
 
   if (req.url.match(apiEndpoint("/todos/[0-9]+")) && req.method === "GET") {
     const id = retrieveId(req);
     const todoItem = await todoRepository.find(id);
-    res.writeHead(200, { "Content-Type": "application/json" });
+    writeHead(res, 200);
     res.end(JSON.stringify(todoItem));
   }
 
@@ -74,11 +91,11 @@ export const handler = async (req, res) => {
     const todo = await parseBody(req);
     try {
       const todoItem = await todoRepository.update(id, todo);
-      res.writeHead(200, { "Content-Type": "application/json" });
+      writeHead(res, 200);
       res.end(JSON.stringify(todoItem));
     } catch (e) {
       if (e instanceof ValidationError) {
-        res.writeHead(400, { "Content-Type": "application/json" });
+        writeHead(res, 400);
         res.end(
           JSON.stringify({
             message: errorMessage,
@@ -94,7 +111,7 @@ export const handler = async (req, res) => {
     const id = retrieveId(req);
     const todo = todoRepository.find(id);
     if (!todo) {
-      res.writeHead(404, { "Content-Type": "application/json" });
+      writeHead(res, 404);
       res.end(
         JSON.stringify({
           message: "Not Found",
@@ -104,7 +121,7 @@ export const handler = async (req, res) => {
     }
     await todoRepository.delete(id);
 
-    res.writeHead(200, { "Content-Type": "application/json" });
+    writeHead(res, 200);
     res.end(JSON.stringify(todo));
   }
 };
