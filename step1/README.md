@@ -12,7 +12,6 @@
 
 ## 留意事項
 
-- 最初から色々入っているコンテナを使うのもアリだが、「で？」を深めるだけなので一旦 Ubuntu のコンテナを使う
 - Ubuntu に SSH サーバをインストールしてみて、ホストマシンから接続してみる
 - 次に、ssh 用のコンテナを使ってコンテナを使ってみる
 
@@ -24,6 +23,7 @@
 ```bash
 docker run -it --rm -v "$PWD/tmp:/root" -p 22:22 ubuntu:20.04 bash
 apt-get update && apt-get install -y vim openssh-server
+vim /etc/ssh/sshd_config # AuthorizedKyFile の設定を変更
 service ssh start
 ```
 

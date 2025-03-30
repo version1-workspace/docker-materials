@@ -137,3 +137,6 @@ dist
 
 step2/server
 step3/server
+
+tmp
+id_ed25519*
